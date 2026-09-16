@@ -76,11 +76,64 @@ namespace szamologep
 
         }
 
+        List<string> muveletek = ["+","-","/","*","=" ];
+        string muvelet;
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
             string felirat = button.Content.ToString();
+
             tb_kijelzo.Text += felirat;
+            if (felirat == "C")
+            {
+                tb_kijelzo.Text = string.Empty;
+            }
+            if ((tb_kijelzo.Text.Contains(muveletek[0]) || tb_kijelzo.Text.Contains(muveletek[1]) || tb_kijelzo.Text.Contains(muveletek[2]) || tb_kijelzo.Text.Contains(muveletek[3])) && tb_kijelzo.Text.Contains(muveletek[4]))
+            {
+                if (tb_kijelzo.Text.Contains(muveletek[0]))
+                {
+                    muvelet = muveletek[0];
+                }
+                else if (tb_kijelzo.Text.Contains(muveletek[1]))
+                {
+                    muvelet = muveletek[1];
+                }
+                else if (tb_kijelzo.Text.Contains(muveletek[2]))
+                {
+                    muvelet = muveletek[2];
+                }
+                else if (tb_kijelzo.Text.Contains(muveletek[3]))
+                {
+                    muvelet = muveletek[3];
+                }
+                tb_kijelzo.Text = tb_kijelzo.Text.Replace(muveletek[4], string.Empty);
+                string[] szamok = tb_kijelzo.Text.Split(muvelet);
+                if (szamok.Length == 2)
+                {
+                    int szam1 = Convert.ToInt32(szamok[0]);
+                    int szam2 = Convert.ToInt32(szamok[1]);
+                    double eredmeny = 0;
+                    if (tb_kijelzo.Text.Contains(muveletek[0]))
+                    {
+                        eredmeny = szam1 + szam2;
+                    }
+                    else if (tb_kijelzo.Text.Contains(muveletek[1]))
+                    {
+                        eredmeny = szam1 - szam2;
+                    }
+                    else if (tb_kijelzo.Text.Contains(muveletek[2]))
+                    {
+                        eredmeny = szam1 / szam2;
+                    }
+                    else if (tb_kijelzo.Text.Contains(muveletek[3]))
+                    {
+                        eredmeny = szam1 * szam2;
+                    }
+                    tb_kijelzo.Text = eredmeny.ToString();
+                }
+
+            }
         }
     }
 }
